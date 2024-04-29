@@ -7,17 +7,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import ui.state.filterDesignWindowState
+import ui.state.filterComparisonWindowState
 
 @Composable
-fun FilterDesignPanel() {
-    val currentFilter by remember { filterDesignWindowState.currentFilter }
+fun FilterComparisonPanel() {
+    val chosen by remember { filterComparisonWindowState.chosenFilters }
+    val rememberedFilters by remember { filterComparisonWindowState.rememberedFilters }
 
     Row(
         modifier = Modifier
             .background(color = Color.White)
     ) {
-        FilterPropertiesInputPanel()
-        FilterVisualizationPanel(currentFilter)
+        FilterList(
+            rememberedFilters.keys
+        )
+        FilterComparisonVisualizationPanel(
+            rememberedFilters.filter { it.key in chosen }
+        )
     }
 }

@@ -11,13 +11,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import core.WindowFunctionEnum
+import core.WindowFunctionType
+import ui.state.filterDesignWindowState
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun WindowFunctionMenu() {
     var expanded by remember { mutableStateOf(false) }
-    var selected by remember { uiState.windowFunction }
+    var selected by remember { filterDesignWindowState.windowFunction }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -34,7 +35,7 @@ fun WindowFunctionMenu() {
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            enumValues<WindowFunctionEnum>().forEach { type ->
+            enumValues<WindowFunctionType>().forEach { type ->
                 DropdownMenuItem(
                     onClick = {
                         selected = type

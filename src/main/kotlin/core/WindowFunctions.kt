@@ -41,7 +41,7 @@ sealed interface WindowFunction : () -> List<Double> {
     }
 }
 
-enum class WindowFunctionEnum(val description: String) {
+enum class WindowFunctionType(val description: String) {
     RECTANGULAR("Rectangular"),
     BARTLETT("Bartlett"),
     HANNING("Hanning"),

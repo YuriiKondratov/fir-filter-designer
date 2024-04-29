@@ -12,12 +12,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import core.FilterTypeEnum
+import ui.state.filterDesignWindowState
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FilterTypeMenu() {
     var expanded by remember { mutableStateOf(false) }
-    var selected by remember { uiState.filterType }
+    var selected by remember { filterDesignWindowState.filterType }
 
     ExposedDropdownMenuBox(
         expanded = expanded,

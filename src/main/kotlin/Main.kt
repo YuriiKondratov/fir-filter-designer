@@ -1,21 +1,24 @@
-import androidx.compose.foundation.layout.Row
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import ui.FilterComparisonPanel
 import ui.FilterDesignPanel
 
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication) {
+    Window(
+        title = "Design",
+        onCloseRequest = ::exitApplication
+    ) {
         MaterialTheme {
-            App()
+            FilterDesignPanel()
         }
     }
-}
-
-@Composable
-fun App() {
-    Row {
-        FilterDesignPanel()
+    Window(
+        title = "Comparison",
+        onCloseRequest = ::exitApplication
+    ){
+        MaterialTheme {
+            FilterComparisonPanel()
+        }
     }
 }
