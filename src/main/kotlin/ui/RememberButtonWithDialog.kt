@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme.colors
@@ -48,7 +50,10 @@ fun RememberButtonWithDialog() {
                     label = { Text("Filter name") },
                     onValueChange = { newValue ->
                         filterName = newValue
-                    }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 20.dp, end = 20.dp)
                 )
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(10.dp)

@@ -32,3 +32,11 @@ fun FilterComparisonWindowState.chooseFilter(filterName: String) {
         it
     }
 }
+
+fun FilterComparisonWindowState.deleteFilter(filterName: String) {
+    var rememberedFilters by rememberedFilters
+    rememberedFilters = rememberedFilters.toMutableMap().let {
+        it.remove(filterName)
+        it
+    }
+}

@@ -21,7 +21,7 @@ fun FilterList(
 ) {
     Box(
         modifier = Modifier
-            .width(256.dp)
+            .width(300.dp)
     ) {
         val stateVertical = rememberScrollState(0)
 
