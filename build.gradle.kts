@@ -36,6 +36,7 @@ dependencies {
 
     implementation("org.jetbrains.compose.components:components-splitpane:1.6.2")
 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
 }
 
 compose.desktop {

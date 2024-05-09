@@ -3,14 +3,15 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import ui.FilterComparisonPanel
 import ui.FilterDesignPanel
+import ui.FiltrationPanel
 
 fun main() = application {
     Window(
-        title = "Design",
+        title = "Filtration",
         onCloseRequest = ::exitApplication
     ) {
         MaterialTheme {
-            FilterDesignPanel()
+            FiltrationPanel()
         }
     }
     Window(
@@ -19,6 +20,14 @@ fun main() = application {
     ){
         MaterialTheme {
             FilterComparisonPanel()
+        }
+    }
+    Window(
+        title = "Design",
+        onCloseRequest = ::exitApplication
+    ) {
+        MaterialTheme {
+            FilterDesignPanel()
         }
     }
 }

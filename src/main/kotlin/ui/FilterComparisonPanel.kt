@@ -8,11 +8,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import ui.state.filterComparisonWindowState
+import ui.state.sharedState
 
 @Composable
 fun FilterComparisonPanel() {
     val chosen by remember { filterComparisonWindowState.chosenFilters }
-    val rememberedFilters by remember { filterComparisonWindowState.rememberedFilters }
+    val rememberedFilters by remember { sharedState.rememberedFilters }
 
     Row(
         modifier = Modifier

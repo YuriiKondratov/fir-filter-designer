@@ -1,12 +1,16 @@
 package ui.controller
 
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import ui.state.addFilter
-import ui.state.filterComparisonWindowState
 import ui.state.filterDesignWindowState
+import ui.state.sharedState
 
 fun rememberFilter(filterName: String) {
-    filterComparisonWindowState.addFilter(
-        filterName,
-        filterDesignWindowState.currentFilter.value
-    )
+    GlobalScope.launch {
+        sharedState.addFilter(
+            filterName,
+            filterDesignWindowState.currentFilter.value
+        )
+    }
 }

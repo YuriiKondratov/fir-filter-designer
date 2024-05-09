@@ -25,7 +25,7 @@ fun DoubleInput(
         onValueChange = { newValue ->
             val doubleValue = newValue.toDoubleOrNull()
             if (doubleValue != null || newValue.isEmpty()) {
-                textFieldValue = newValue.trimStart('0')
+                textFieldValue = newValue
                 onValueChange(doubleValue)
             }
         }

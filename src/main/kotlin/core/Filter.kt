@@ -13,6 +13,6 @@ data class FilterInfo(
 fun Filter.calculateInfo(sampleRate: Int) =
     FilterInfo(
         impulseResponse(),
-        frequencyResponse(sampleRate),
-        frequencyResponseDb(sampleRate)
+        coefficients.frequencyDomain(sampleRate),
+        coefficients.frequencyDomainDb(sampleRate)
     )

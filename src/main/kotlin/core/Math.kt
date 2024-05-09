@@ -5,7 +5,6 @@ import org.apache.commons.math3.complex.Complex
 import org.apache.commons.math3.util.FastMath.E
 import org.apache.commons.math3.util.FastMath.PI
 import org.apache.commons.math3.util.MathArrays
-import kotlin.math.min
 
 fun sinc(n: Double) = Sinc(true).value(n)
 
@@ -25,17 +24,7 @@ fun dft(input: List<Double>): List<Complex> {
     }
 }
 
-fun convolution(x: List<Double>, y: List<Double>): List<Double> {
-    val size = min(x.size, y.size)
-    val element = { n: Int, m: Int -> x[n - m] * y[m] }
-    return (0 until size).map { n ->
-        (0 until size).sumOf { m ->
-            element(n, m)
-        }
-    }
-}
-
-fun _convolution(x: List<Double>, y: List<Double>) =
+fun convolution(x: List<Double>, y: List<Double>) =
     MathArrays.convolve(
         x.toDoubleArray(),
         y.toDoubleArray()

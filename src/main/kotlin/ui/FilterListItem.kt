@@ -11,7 +11,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.RadioButton
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.runtime.Composable
@@ -19,11 +18,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ui.state.chooseFilter
 import ui.state.deleteFilter
 import ui.state.filterComparisonWindowState
+import ui.state.sharedState
 
 @Composable
 fun FilterListItem(
@@ -50,7 +49,7 @@ fun FilterListItem(
             maxLines = 1,
         )
         IconButton(
-            onClick = { filterComparisonWindowState.deleteFilter(name) }
+            onClick = { sharedState.deleteFilter(name) }
         ) {
             Icon(
                 Icons.Rounded.Delete,
