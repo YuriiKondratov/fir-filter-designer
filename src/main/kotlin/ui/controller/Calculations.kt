@@ -4,6 +4,7 @@ import core.WindowFunction
 import core.WindowFunctionType
 import core.calculateInfo
 import core.designBandPassFilter
+import core.designBandRejectFilter
 import core.designHighPassFilter
 import core.designLowPassFilter
 import kotlinx.coroutines.GlobalScope
@@ -73,7 +74,7 @@ fun calculateBandRejectFilter() {
         val numberOfLowPassTaps = bandRejectFilterDesignState.numberOfLowPassTaps.value!!
         val numberOfHighPassTaps = bandRejectFilterDesignState.numberOfHighPassTaps.value!!
         val sampleRate = filterDesignWindowState.sampleRate.value!!
-        val filter = designBandPassFilter(
+        val filter = designBandRejectFilter(
             bandRejectFilterDesignState.lowPassFrequency.value!!,
             bandRejectFilterDesignState.highPassFrequency.value!!,
             numberOfLowPassTaps,
