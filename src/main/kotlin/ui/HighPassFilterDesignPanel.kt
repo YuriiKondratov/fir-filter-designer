@@ -17,11 +17,11 @@ fun HighPassFilterDesignPanel() {
     IntInput(
         value = numberOfTaps,
         onValueChange = { numberOfTaps = it },
-        label = { Text("Number of taps") }
+        label = { Text("Количество отсчетов") }
     )
     DoubleInput(
         value = highPassFrequency,
         onValueChange = { highPassFrequency = it },
-        label = { Text("High pass frequency") }
+        label = { Text("Частота среза, Гц") }
     )
 }

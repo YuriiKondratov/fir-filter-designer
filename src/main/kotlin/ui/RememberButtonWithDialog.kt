@@ -30,10 +30,10 @@ fun RememberButtonWithDialog() {
     Button(
         onClick = { expanded = true }
     ) {
-        Text("Remember")
+        Text("Запомнить")
     }
     DialogWindow(
-        title = "Remember",
+        title = "Запомнить",
         resizable = false,
         onCloseRequest = { expanded = false },
         visible = expanded,
@@ -43,11 +43,11 @@ fun RememberButtonWithDialog() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceAround
             ) {
-                Text("Enter filter name:")
+                Text("Введите имя фильтра:")
                 TextField(
                     value = filterName,
                     singleLine = true,
-                    label = { Text("Filter name") },
+                    label = { Text("Имя фильтра") },
                     onValueChange = { newValue ->
                         filterName = newValue
                     },
@@ -61,7 +61,7 @@ fun RememberButtonWithDialog() {
                     Button(
                         onClick = { expanded = false },
                     ) {
-                        Text("Cancel")
+                        Text("Отмена")
                     }
                     Button(
                         onClick = {
@@ -73,7 +73,7 @@ fun RememberButtonWithDialog() {
                             backgroundColor = colors.secondary
                         )
                     ) {
-                        Text("Ok")
+                        Text("Запомнить")
                     }
                 }
             }

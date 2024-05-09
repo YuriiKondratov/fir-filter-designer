@@ -42,9 +42,9 @@ sealed interface WindowFunction : () -> List<Double> {
 }
 
 enum class WindowFunctionType(val description: String) {
-    RECTANGULAR("Rectangular"),
-    BARTLETT("Bartlett"),
-    HANNING("Hanning"),
-    HAMMING("Hamming"),
-    BLACKMAN("Blackman");
+    RECTANGULAR("Прямоугольное окно"),
+    BARTLETT("Окно Барлетта"),
+    HANNING("Окно Ганна"),
+    HAMMING("Окно Хэмминга"),
+    BLACKMAN("Окно Блэкмана");
 }

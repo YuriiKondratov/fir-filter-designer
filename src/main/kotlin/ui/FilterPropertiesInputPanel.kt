@@ -16,6 +16,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import core.FilterTypeEnum
+import ui.controller.calculateBandPassFilter
+import ui.controller.calculateBandRejectFilter
 import ui.controller.calculateHighPassFilter
 import ui.controller.calculateLowPassFilter
 import ui.input.IntInput
@@ -28,7 +30,7 @@ fun FilterPropertiesInputPanel() {
 
     Column(
         modifier = Modifier
-            .width(256.dp)
+            .width(300.dp)
             .fillMaxHeight()
             .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -38,7 +40,7 @@ fun FilterPropertiesInputPanel() {
         IntInput(
             value = sampleRate,
             onValueChange = { sampleRate = it },
-            label = { Text("Sample rate") }
+            label = { Text("Частота дискретизации, Гц") }
         )
         WindowFunctionMenu()
         FilterTypeMenu()
@@ -52,6 +54,14 @@ fun FilterPropertiesInputPanel() {
                 HighPassFilterDesignPanel()
                 ::calculateHighPassFilter
             }
+            FilterTypeEnum.BAND_PASS -> {
+                BandPassFilterDesignPanel()
+                ::calculateBandPassFilter
+            }
+            FilterTypeEnum.BAND_REJECT -> {
+                BandRejectFilterDesignPanel()
+                ::calculateBandRejectFilter
+            }
         }
 
         Row(
@@ -60,7 +70,7 @@ fun FilterPropertiesInputPanel() {
             Button(
                 onClick = calculationCommand
             ) {
-                Text("Calculate")
+                Text("Рассчитать")
             }
             RememberButtonWithDialog()
         }

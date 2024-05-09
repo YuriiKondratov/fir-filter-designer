@@ -17,11 +17,11 @@ fun LowPassFilterDesignPanel() {
     IntInput(
         value = numberOfTaps,
         onValueChange = { numberOfTaps = it },
-        label = { Text("Number of taps") }
+        label = { Text("Количество отсчетов") }
     )
     DoubleInput(
         value = lowCutFrequency,
         onValueChange = { lowCutFrequency = it },
-        label = { Text("Low pass frequency") }
+        label = { Text("Частота среза, Гц") }
     )
 }

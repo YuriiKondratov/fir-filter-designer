@@ -1,8 +1,5 @@
 package core
 
-import kotlin.math.ceil
-import kotlin.math.floor
-
 fun designLowPassFilter(
     sampleRate: Int,
     lowPassFrequency: Double,
@@ -32,49 +29,73 @@ fun designHighPassFilter(
     coefficients[numberOfTaps / 2] = mid + 1
     return Filter(coefficients)
 }
-//
-//fun designBandPassFilter(
-//    cutoffFrequencyLow: Double,
-//    cutoffFrequencyHigh: Double,
-//    sampleRate: Int,
-//    numberOfTaps: Int,
-//    windowFunction: WindowFunction
-//): Filter {
-//    val lowPass = designLowPassFilter(
-//        cutoffFrequencyHigh,
-//        sampleRate,
-//        floor(numberOfTaps / 2.0).toInt() + 1,
-//        windowFunction
-//    )
-//    val highPass = designHighPassFilter(
-//        cutoffFrequencyLow,
-//        sampleRate, ceil(numberOfTaps / 2.0).toInt(),
-//        windowFunction
-//    )
-//
-//    return Filter(
-//        _convolution(lowPass.coefficients, highPass.coefficients)
-//    )
-//}
-//
-//fun designBandRejectFilter(
-//    cutoffFrequencyLow: Double,
-//    cutoffFrequencyHigh: Double,
-//    sampleRate: Int,
-//    numberOfTaps: Int,
-//    windowFunction: WindowFunction
-//): Filter {
-//    val coefficients = designBandPassFilter(
-//        cutoffFrequencyLow,
-//        cutoffFrequencyHigh,
-//        sampleRate,
-//        numberOfTaps,
-//        windowFunction
-//    )
-//        .coefficients
-//        .map { it * -1 }
-//        .toMutableList()
-//    val mid = coefficients[numberOfTaps / 2]
-//    coefficients[numberOfTaps / 2] = mid + 1
-//    return Filter(coefficients)
-//}
+
+fun designBandPassFilter(
+    lowPassFrequency: Double,
+    highPassFrequency: Double,
+    lowPassNumberOfTaps: Int,
+    highPassNumberOfTaps: Int,
+    lowPassWindow: WindowFunction,
+    highPassWindow: WindowFunction,
+    sampleRate: Int,
+): Filter {
+    val lowPass = designLowPassFilter(
+        sampleRate,
+        highPassFrequency,
+        lowPassNumberOfTaps,
+        lowPassWindow
+    )
+    val highPass = designHighPassFilter(
+        sampleRate,
+        lowPassFrequency,
+        highPassNumberOfTaps,
+        highPassWindow
+    )
+
+    return Filter(
+        convolution(lowPass.coefficients, highPass.coefficients)
+    )
+}
+
+fun designBandRejectFilter(
+    lowPassFrequency: Double,
+    highPassFrequency: Double,
+    lowPassNumberOfTaps: Int,
+    highPassNumberOfTaps: Int,
+    lowPassWindow: WindowFunction,
+    highPassWindow: WindowFunction,
+    sampleRate: Int,
+): Filter {
+    val lowPass = designLowPassFilter(
+        sampleRate,
+        lowPassFrequency,
+        lowPassNumberOfTaps,
+        lowPassWindow
+    )
+    val highPass = designHighPassFilter(
+        sampleRate,
+        highPassFrequency,
+        highPassNumberOfTaps,
+        highPassWindow
+    )
+
+    val long = if (lowPass.coefficients.size >= highPass.coefficients.size) {
+        lowPass.coefficients
+    } else {
+        highPass.coefficients
+    }
+    var short = if (lowPass.coefficients.size >= highPass.coefficients.size) {
+        highPass.coefficients
+    } else {
+        lowPass.coefficients
+    }
+    val diff = (long.size - short.size) / 2
+    short = MutableList(diff) { 0.0 }.also {
+        it.addAll(short)
+        it.addAll(List(diff) { 0.0 })
+    }
+
+    return Filter(
+        long.zip(short).map { it.first + it.second }
+    )
+}
