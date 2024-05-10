@@ -31,7 +31,7 @@ fun FilterComparisonVisualizationPanel(
                 x = "x"
                 y = "y"
                 color = ""
-            } + xlab("Sample number") + ylab("Amplitude"),
+            } + xlab("Номер отсчета") + ylab(""),
             modifier = Modifier
                 .fillMaxSize()
                 .weight(1F)
@@ -46,7 +46,7 @@ fun FilterComparisonVisualizationPanel(
                 x = "x"
                 y = "y"
                 color = ""
-            } + xlab("Frequency") + ylab("Gain"),
+            } + xlab("Частота, Гц") + ylab("Усиление, дБ"),
             modifier = Modifier
                 .fillMaxSize()
                 .weight(1F)
@@ -61,7 +61,7 @@ fun FilterComparisonVisualizationPanel(
                 x = "x"
                 y = "y"
                 color = ""
-            } + xlab("Frequency") + ylab("Gain [dB]"),
+            } + xlab("Частота, Гц") + ylab("Усиление, дБ"),
             modifier = Modifier
                 .fillMaxSize()
                 .weight(1F)

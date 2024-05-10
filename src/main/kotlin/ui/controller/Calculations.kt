@@ -16,7 +16,6 @@ import ui.state.highPassFilterDesignState
 import ui.state.lowPassFilterDesignState
 import ui.state.setCurrentFilter
 
-
 fun calculateLowPassFilter() {
     GlobalScope.launch {
         val numberOfTaps = lowPassFilterDesignState.numberOfTaps.value!!

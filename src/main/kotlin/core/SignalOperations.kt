@@ -3,8 +3,6 @@ package core
 import kotlin.math.log10
 
 fun List<Double>.frequencyDomain(sampleRate: Int): Map<Double, Double> {
-
-    //padding
     val dftInput = this.toMutableList()
     while (dftInput.size < FREQUENCY_RESPONSE_POINTS) {
         dftInput.add(0.0)
@@ -38,4 +36,4 @@ fun Map<Double, Double>.applyFilter(filter: List<Double>): Map<Double, Double> {
         .associate { (x, t) -> t to x }
 }
 
-private const val FREQUENCY_RESPONSE_POINTS = 1024
+const val FREQUENCY_RESPONSE_POINTS = 1024

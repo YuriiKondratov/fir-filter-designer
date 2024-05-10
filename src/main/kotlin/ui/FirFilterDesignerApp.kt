@@ -4,8 +4,11 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import androidx.compose.ui.window.rememberWindowState
 import ui.state.appWindowsState
 import ui.state.isExitNeeded
 
@@ -16,6 +19,7 @@ fun FirFilterDesignerApp() = application {
 
     MaterialTheme {
         Window(
+            state = rememberWindowState(size = DpSize(1000.dp, 700.dp)),
             title = "Проектирование",
             visible = designWindowVisible,
             onCloseRequest = {
@@ -29,6 +33,7 @@ fun FirFilterDesignerApp() = application {
             FilterDesignPanel()
         }
         Window(
+            state = rememberWindowState(size = DpSize(1200.dp, 800.dp)),
             title = "Сравнение",
             visible = comparisonWindowVisible,
             onCloseRequest = {

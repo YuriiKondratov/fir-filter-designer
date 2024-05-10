@@ -40,15 +40,9 @@ fun visualizeInputSignal() {
 
         val step = (endTime - startTime) / signalValues.size
         filtrationWindowState.chooseVisualizedPart(
-            signalValues.withIndex().associate { (i, x) ->
+            signalValues.withIndex().associate { (i, _) ->
                 (startTime + i * step) to signalValues[i]
             }
         )
-    }
-}
-
-fun applyCurrentFilter() {
-    GlobalScope.launch {
-
     }
 }
