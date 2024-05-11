@@ -2,8 +2,8 @@ package ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
@@ -64,8 +64,9 @@ fun FilterPropertiesInputPanel() {
             }
         }
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
                 onClick = calculationCommand
@@ -73,6 +74,11 @@ fun FilterPropertiesInputPanel() {
                 Text("Рассчитать")
             }
             RememberButtonWithDialog()
+            Button(
+                onClick = calculationCommand
+            ) {
+                Text("Экспортировать")
+            }
         }
     }
 }

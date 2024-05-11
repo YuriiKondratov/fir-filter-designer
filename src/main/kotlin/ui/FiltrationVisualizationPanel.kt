@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import core.frequencyDomain
-import core.frequencyDomainDb
+import core.frequencyResponse
+import core.frequencyResponseDb
 import org.jetbrains.letsPlot.geom.geomLine
 import org.jetbrains.letsPlot.label.xlab
 import org.jetbrains.letsPlot.label.ylab
@@ -23,10 +23,10 @@ fun FiltrationVisualizationPanel(
     val values = signal.values.toList()
     val filteredValues = filteredSignal.values.toList()
 
-    val freqDomain = values.frequencyDomain(sampleRate)
-    val freqDomainDb = values.frequencyDomainDb(sampleRate)
-    val filteredFreqDomain = filteredValues.frequencyDomain(sampleRate)
-    val filteredFreqDomainDb = filteredValues.frequencyDomainDb(sampleRate)
+    val freqDomain = values.frequencyResponse(sampleRate)
+    val freqDomainDb = values.frequencyResponseDb(sampleRate)
+    val filteredFreqDomain = filteredValues.frequencyResponse(sampleRate)
+    val filteredFreqDomainDb = filteredValues.frequencyResponseDb(sampleRate)
 
     Column(
         modifier = Modifier

@@ -10,11 +10,14 @@ data class FilterInfo(
     val frequencyResponseDb: Map<Double, Double>
 )
 
+fun FilterInfo.coefficients(): List<Double> =
+    impulseResponse.values.toList()
+
 fun Filter.calculateInfo(sampleRate: Int) =
     FilterInfo(
         impulseResponse(),
-        coefficients.frequencyDomain(sampleRate),
-        coefficients.frequencyDomainDb(sampleRate)
+        coefficients.frequencyResponse(sampleRate),
+        coefficients.frequencyResponseDb(sampleRate)
     )
 
 enum class FilterTypeEnum(val description: String) {

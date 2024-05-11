@@ -27,3 +27,6 @@ fun SharedState.deleteFilter(filterName: String) {
         it
     }
 }
+
+fun SharedState.getFilter(filerName: String) =
+    rememberedFilters.value[filerName]

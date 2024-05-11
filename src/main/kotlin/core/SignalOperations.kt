@@ -2,7 +2,7 @@ package core
 
 import kotlin.math.log10
 
-fun List<Double>.frequencyDomain(sampleRate: Int): Map<Double, Double> {
+fun List<Double>.frequencyResponse(sampleRate: Int): Map<Double, Double> {
     val dftInput = this.toMutableList()
     while (dftInput.size < FREQUENCY_RESPONSE_POINTS) {
         dftInput.add(0.0)
@@ -19,21 +19,11 @@ fun List<Double>.frequencyDomain(sampleRate: Int): Map<Double, Double> {
         }
 }
 
-fun List<Double>.frequencyDomainDb(sampleRate: Int): Map<Double, Double> {
-    val frequencyResp = frequencyDomain(sampleRate)
+fun List<Double>.frequencyResponseDb(sampleRate: Int): Map<Double, Double> {
+    val frequencyResp = frequencyResponse(sampleRate)
     return frequencyResp.entries.associate {
         it.key to 20 * log10(it.value)
     }
 }
 
-fun Map<Double, Double>.applyFilter(filter: List<Double>): Map<Double, Double> {
-    val conv = convolution(values.toList(), filter)
-    val indent = filter.size / 2
-    val sameConv = conv.subList(indent, conv.size - indent)
-
-    return sameConv.zip(keys)
-        .subList(indent, sameConv.size - indent)
-        .associate { (x, t) -> t to x }
-}
-
-const val FREQUENCY_RESPONSE_POINTS = 1024
+const val FREQUENCY_RESPONSE_POINTS = 2048

@@ -47,6 +47,7 @@ fun FirFilterDesignerApp() = application {
             FilterComparisonPanel()
         }
         Window(
+            state = rememberWindowState(size = DpSize(1000.dp, 600.dp)),
             title = "Применение",
             visible = filteringWindowVisible,
             onCloseRequest = {
@@ -57,7 +58,7 @@ fun FirFilterDesignerApp() = application {
             }
         ) {
             AppMenuBar()
-            FiltrationPanel()
+            FilteringPanel()
         }
     }
 }

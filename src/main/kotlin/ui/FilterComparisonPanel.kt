@@ -19,7 +19,7 @@ fun FilterComparisonPanel() {
         modifier = Modifier
             .background(color = Color.White)
     ) {
-        FilterList(
+        ComparisonFilterList(
             rememberedFilters.keys
         )
         FilterComparisonVisualizationPanel(
