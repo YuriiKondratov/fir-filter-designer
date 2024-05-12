@@ -48,7 +48,7 @@ fun FilteringPanel() {
             modifier = Modifier.weight(1F)
         ) {
             Column(
-                verticalArrangement = Arrangement.SpaceBetween,
+                verticalArrangement = Arrangement.SpaceAround,
                 horizontalAlignment = Alignment.Start,
                 modifier = Modifier.width(350.dp).padding(10.dp).fillMaxHeight()
             ) {
@@ -112,26 +112,6 @@ fun FilteringPanel() {
                         modifier = Modifier.fillMaxWidth(),
                         text = "Фильтр: ${chosenFilter ?: ""}"
                     )
-                    Button(
-                        enabled = chosenFilter != null,
-                        onClick = {
-                            applyFilterToSignal()
-                        }
-                    ) {
-                        Text("Применить фильтр")
-                    }
-                }
-
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Button(
-                        enabled = file != null && chosenFilter != null,
-                        onClick = {}
-                    ) {
-                        Text("Сохранить результат")
-                    }
                 }
             }
             Column(

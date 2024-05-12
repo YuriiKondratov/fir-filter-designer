@@ -15,9 +15,9 @@ class WavFile(private val file: File) {
     val byteOrder: ByteOrder
     val duration: Float
     val name: String
+    val format: AudioFormat
 
     init {
-        val format: AudioFormat
         AudioSystem.getAudioInputStream(file).use {
             frameLength = it.frameLength
             format = it.format

@@ -43,7 +43,9 @@ fun ChooseFilterButtonWithDialog(
                 verticalArrangement = Arrangement.SpaceAround
             ) {
                 FilteringFilterList(
-                    onSelect = { expanded = false },
+                    onSelect = {
+                        expanded = false
+                    },
                     filterNames = rememberedFilters.keys
                 )
             }
