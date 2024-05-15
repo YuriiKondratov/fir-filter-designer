@@ -15,7 +15,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.unit.dp
+import core.FilterInfo
 import core.FilterTypeEnum
 import ui.controller.calculateBandPassFilter
 import ui.controller.calculateBandRejectFilter
@@ -27,6 +29,9 @@ import ui.controller.validateHighPassFilterData
 import ui.controller.validateLowPassFilterData
 import ui.input.IntInput
 import ui.state.filterDesignWindowState
+import java.awt.FileDialog
+import java.io.File
+import kotlin.math.round
 
 @Composable
 fun FilterPropertiesInputPanel() {
@@ -40,6 +45,16 @@ fun FilterPropertiesInputPanel() {
         errorMessage
     ) {
         isError = false
+    }
+
+    fun getFilter(): FilterInfo? {
+        val currentFilter = filterDesignWindowState.currentFilter.value
+        if (currentFilter.impulseResponse.isEmpty()) {
+            errorMessage = "Перед экспортированием необходимо рассчитать фильтр"
+            isError = true
+            return null
+        }
+        return currentFilter
     }
 
     Column(
@@ -113,7 +128,20 @@ fun FilterPropertiesInputPanel() {
             }
             RememberButtonWithDialog()
             Button(
-                onClick = calculationCommand
+                onClick = {
+                    val filter = getFilter()
+                    filter?.let {
+                        val dialog = FileDialog(ComposeWindow(), "", FileDialog.SAVE)
+                        dialog.isVisible = true
+                        if (dialog.directory != null || dialog.file != null) {
+                            val path = dialog.directory + dialog.file + ".txt"
+                            File(path).writeText(filter.impulseResponse
+                                .values
+                                .map { round(it * 10e6) / 10e6 }
+                                .joinToString())
+                        }
+                    }
+                }
             ) {
                 Text("Экспортировать")
             }
