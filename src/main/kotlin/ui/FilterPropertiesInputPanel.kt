@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.unit.dp
-import core.FilterInfo
 import core.FilterTypeEnum
 import ui.controller.calculateBandPassFilter
 import ui.controller.calculateBandRejectFilter
@@ -45,16 +44,6 @@ fun FilterPropertiesInputPanel() {
         errorMessage
     ) {
         isError = false
-    }
-
-    fun getFilter(): FilterInfo? {
-        val currentFilter = filterDesignWindowState.currentFilter.value
-        if (currentFilter.impulseResponse.isEmpty()) {
-            errorMessage = "Перед экспортированием необходимо рассчитать фильтр"
-            isError = true
-            return null
-        }
-        return currentFilter
     }
 
     Column(
@@ -85,6 +74,7 @@ fun FilterPropertiesInputPanel() {
                     } ?: calculateLowPassFilter()
                 }
             }
+
             FilterTypeEnum.HIGH_PASS -> {
                 HighPassFilterDesignPanel();
                 {
@@ -95,6 +85,7 @@ fun FilterPropertiesInputPanel() {
                     } ?: calculateBandPassFilter()
                 }
             }
+
             FilterTypeEnum.BAND_PASS -> {
                 BandPassFilterDesignPanel();
                 {
@@ -105,6 +96,7 @@ fun FilterPropertiesInputPanel() {
                     } ?: calculateHighPassFilter()
                 }
             }
+
             FilterTypeEnum.BAND_REJECT -> {
                 BandRejectFilterDesignPanel();
                 {
@@ -126,11 +118,25 @@ fun FilterPropertiesInputPanel() {
             ) {
                 Text("Рассчитать")
             }
-            RememberButtonWithDialog()
+            RememberButtonWithDialog(
+                onClick = {
+                    val filter = filterDesignWindowState.currentFilter.value
+                    if (filter.impulseResponse.isEmpty()) {
+                        errorMessage = "Необходимо сначала рассчитать фильтр!"
+                        isError = true
+                        false
+                    } else {
+                        true
+                    }
+                }
+            )
             Button(
                 onClick = {
-                    val filter = getFilter()
-                    filter?.let {
+                    val filter = filterDesignWindowState.currentFilter.value
+                    if (filter.impulseResponse.isEmpty()) {
+                        errorMessage = "Необходимо сначала рассчитать фильтр!"
+                        isError = true
+                    } else {
                         val dialog = FileDialog(ComposeWindow(), "", FileDialog.SAVE)
                         dialog.isVisible = true
                         if (dialog.directory != null || dialog.file != null) {

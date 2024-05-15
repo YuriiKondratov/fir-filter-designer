@@ -25,12 +25,18 @@ import androidx.compose.ui.window.DialogWindow
 import ui.controller.rememberFilter
 
 @Composable
-fun RememberButtonWithDialog() {
+fun RememberButtonWithDialog(
+    onClick: () -> Boolean
+) {
     var expanded by remember { mutableStateOf(false) }
     var filterName by remember { mutableStateOf("") }
 
     Button(
-        onClick = { expanded = true }
+        onClick = {
+            if(onClick()) {
+                expanded = true
+            }
+        }
     ) {
         Text("Запомнить")
     }
