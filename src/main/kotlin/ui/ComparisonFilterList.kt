@@ -12,6 +12,7 @@ import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.runtime.Composable
@@ -45,19 +46,23 @@ fun ComparisonFilterList(
             Column(
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                filterNames.forEach {
-                    FilterListItem(
-                        name = it,
-                        onSelect = { filterComparisonWindowState.chooseFilter(it) },
-                        selected = chosenFilters.contains(it)
-                    ) {
-                        IconButton(
-                            onClick = { sharedState.deleteFilter(it) }
+                if (filterNames.isEmpty()) {
+                    Text("Список пуст. Для добавления фильтров нажмите \"Запомнить\" в окне \"Проектирование\"")
+                } else {
+                    filterNames.forEach {
+                        FilterListItem(
+                            name = it,
+                            onSelect = { filterComparisonWindowState.chooseFilter(it) },
+                            selected = chosenFilters.contains(it)
                         ) {
-                            Icon(
-                                Icons.Rounded.Delete,
-                                contentDescription = "1234"
-                            )
+                            IconButton(
+                                onClick = { sharedState.deleteFilter(it) }
+                            ) {
+                                Icon(
+                                    Icons.Rounded.Delete,
+                                    contentDescription = "1234"
+                                )
+                            }
                         }
                     }
                 }

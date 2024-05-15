@@ -10,7 +10,8 @@ import java.io.File
 
 @Composable
 fun WavFileInput(
-    onChoice: (WavFile?) -> Unit
+    onChoice: (WavFile?) -> Unit,
+    onError: (Throwable) -> Unit = {}
 ) {
     Button(
         onClick = {
@@ -21,7 +22,13 @@ fun WavFileInput(
                 onChoice(null)
             } else {
                 val path = dialog.directory + dialog.file
-                onChoice(WavFile(File(path)))
+                val file = try {
+                    WavFile(File(path))
+                } catch (ex: Throwable) {
+                    onError(ex)
+                    null
+                }
+                onChoice(file)
             }
         }
     ) {

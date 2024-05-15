@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -39,15 +40,19 @@ fun FilteringFilterList(
             Column(
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                filterNames.forEach {
-                    FilterListItem(
-                        name = it,
-                        onSelect = {
-                            onSelect()
-                            filteringWindowState.chooseFilter(it)
-                        },
-                        selected = chosenFilter?.equals(it) ?: false
-                    ) {}
+                if (filterNames.isEmpty()) {
+                    Text("Список пуст. Для добавления фильтров нажмите \"Запомнить\" в окне \"Проектирование\"")
+                } else {
+                    filterNames.forEach {
+                        FilterListItem(
+                            name = it,
+                            onSelect = {
+                                onSelect()
+                                filteringWindowState.chooseFilter(it)
+                            },
+                            selected = chosenFilter?.equals(it) ?: false
+                        ) {}
+                    }
                 }
             }
         }

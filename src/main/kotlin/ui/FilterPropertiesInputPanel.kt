@@ -30,6 +30,7 @@ import ui.input.IntInput
 import ui.state.filterDesignWindowState
 import java.awt.FileDialog
 import java.io.File
+import java.nio.file.Files
 import kotlin.math.round
 
 @Composable
@@ -141,10 +142,17 @@ fun FilterPropertiesInputPanel() {
                         dialog.isVisible = true
                         if (dialog.directory != null || dialog.file != null) {
                             val path = dialog.directory + dialog.file + ".txt"
-                            File(path).writeText(filter.impulseResponse
-                                .values
-                                .map { round(it * 10e6) / 10e6 }
-                                .joinToString())
+                            val file = File(path)
+                            Files.deleteIfExists(file.toPath())
+                            try {
+                                file.writeText(filter.impulseResponse
+                                    .values
+                                    .map { round(it * 10e6) / 10e6 }
+                                    .joinToString { it.toBigDecimal().toPlainString() })
+                            } catch (ex: Exception) {
+                                errorMessage = "Ошибка при записи файла: ${ex.message}"
+                                isError = true
+                            }
                         }
                     }
                 }

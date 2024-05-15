@@ -15,6 +15,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -40,6 +41,15 @@ fun FilteringPanel() {
     var file by remember { filteringWindowState.file }
     val chosenFilter by remember { filteringWindowState.chosenFilter }
 
+    var errorMessage by remember { mutableStateOf("") }
+    var isError by remember { mutableStateOf(false) }
+    ErrorMessageDialog(
+        isError,
+        errorMessage
+    ) {
+        isError = false
+    }
+
     Column(
         modifier = Modifier.fillMaxSize()
             .background(color = Color.White)
@@ -55,7 +65,20 @@ fun FilteringPanel() {
                 Column {
                     WavFileInput(
                         onChoice = {
-                            file = it
+                            it?.duration?.let { dur ->
+                                if (dur < 1) {
+                                    errorMessage = "Длительность аудио должна превышать 1 секунду"
+                                    isError = true
+                                    file = null
+                                } else {
+                                    file = it
+                                }
+                            } ?: { file = null }
+                            Unit
+                        },
+                        onError = {
+                            errorMessage = "Ошибка при считывании файла: ${it.message}"
+                            isError = true
                         }
                     )
                     Text(

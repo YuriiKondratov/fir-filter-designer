@@ -57,7 +57,9 @@ fun RememberButtonWithDialog(
                     singleLine = true,
                     label = { Text("Имя фильтра") },
                     onValueChange = { newValue ->
-                        filterName = newValue
+                        if (newValue.length <= 128) {
+                            filterName = newValue
+                        }
                     },
                     modifier = Modifier
                         .fillMaxWidth()

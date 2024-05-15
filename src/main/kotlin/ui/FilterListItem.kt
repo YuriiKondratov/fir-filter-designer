@@ -35,9 +35,8 @@ fun FilterListItem(
             onValueChange = {},
             value = name,
             modifier = Modifier
-                .padding(start = 10.dp)
+                .padding(start = 10.dp, top = 10.dp, bottom = 10.dp)
                 .weight(1F),
-            maxLines = 1,
         )
         trailingContent()
         RadioButton(

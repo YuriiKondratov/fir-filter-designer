@@ -6,6 +6,7 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import javax.sound.sampled.AudioFormat
 import javax.sound.sampled.AudioSystem
+import javax.sound.sampled.UnsupportedAudioFileException
 
 class WavFile(private val file: File) {
     val sampleRate: Int
@@ -33,6 +34,10 @@ class WavFile(private val file: File) {
         }
         duration = frameLength.toFloat() / frameRate
         name = file.name
+
+        if (frameSize != 2) {
+            throw UnsupportedAudioFileException("поддерживаются только wav файлы с разрядностью 16 бит")
+        }
     }
 
     fun getData(from: Long, to: Long): List<Short> {
