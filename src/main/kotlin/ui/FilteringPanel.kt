@@ -40,6 +40,7 @@ import kotlin.math.round
 fun FilteringPanel() {
     var file by remember { filteringWindowState.file }
     val chosenFilter by remember { filteringWindowState.chosenFilter }
+    var sliderPosition by remember { mutableFloatStateOf(0f) }
 
     var errorMessage by remember { mutableStateOf("") }
     var isError by remember { mutableStateOf(false) }
@@ -72,6 +73,7 @@ fun FilteringPanel() {
                                     file = null
                                 } else {
                                     file = it
+                                    visualizeSignalFrequencyResponse(sliderPosition)
                                 }
                             } ?: { file = null }
                             Unit
@@ -96,8 +98,6 @@ fun FilteringPanel() {
                 }
 
                 Column {
-                    var sliderPosition by remember { mutableFloatStateOf(0f) }
-
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -129,7 +129,13 @@ fun FilteringPanel() {
 
                 Column {
                     ChooseFilterButtonWithDialog(
-                        enabled = file != null
+                        enabled = file != null,
+                        onSelect = {
+                            GlobalScope.launch {
+                                visualizeSignalFrequencyResponse(sliderPosition)
+                                applyFilterToSignal()
+                            }
+                        }
                     )
                     Text(
                         modifier = Modifier.fillMaxWidth(),

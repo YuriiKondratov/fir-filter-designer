@@ -26,18 +26,16 @@ fun visualizeSignalFrequencyResponse(time: Float) {
 
 
 fun applyFilterToSignal() {
-    GlobalScope.launch {
-        val file = filteringWindowState.file.value ?: return@launch
-        val signal = filteringWindowState.signal.value
-        val chosenFilter = filteringWindowState.chosenFilter.value ?: return@launch
-        var filteredSignal = convolution(
-            signal.map { it.toDouble() },
-            sharedState.getFilter(chosenFilter)?.coefficients() ?: return@launch
-        )
-        val diff = (filteredSignal.size - signal.size) / 2
-        filteredSignal = filteredSignal.subList(diff, filteredSignal.size - diff)
-        val fr = filteredSignal.frequencyResponse(file.sampleRate)
-        var filteredSignalFr by filteringWindowState.filteredSignalFrequencyResponse
-        filteredSignalFr = fr.entries.associate { it.key to it.value / fr.size }
-    }
+    val file = filteringWindowState.file.value ?: return
+    val signal = filteringWindowState.signal.value
+    val chosenFilter = filteringWindowState.chosenFilter.value ?: return
+    var filteredSignal = convolution(
+        signal.map { it.toDouble() },
+        sharedState.getFilter(chosenFilter)?.coefficients() ?: return
+    )
+    val diff = (filteredSignal.size - signal.size) / 2
+    filteredSignal = filteredSignal.subList(diff, filteredSignal.size - diff)
+    val fr = filteredSignal.frequencyResponse(file.sampleRate)
+    var filteredSignalFr by filteringWindowState.filteredSignalFrequencyResponse
+    filteredSignalFr = fr.entries.associate { it.key to it.value / fr.size }
 }

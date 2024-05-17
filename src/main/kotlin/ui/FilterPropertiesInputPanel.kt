@@ -83,7 +83,7 @@ fun FilterPropertiesInputPanel() {
                     error?.run {
                         errorMessage = this
                         isError = true
-                    } ?: calculateBandPassFilter()
+                    } ?: calculateHighPassFilter()
                 }
             }
 
@@ -94,7 +94,7 @@ fun FilterPropertiesInputPanel() {
                     error?.run {
                         errorMessage = this
                         isError = true
-                    } ?: calculateHighPassFilter()
+                    } ?: calculateBandPassFilter()
                 }
             }
 

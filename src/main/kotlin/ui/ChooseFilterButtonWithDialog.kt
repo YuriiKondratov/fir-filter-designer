@@ -19,7 +19,8 @@ import ui.state.sharedState
 
 @Composable
 fun ChooseFilterButtonWithDialog(
-    enabled: Boolean
+    enabled: Boolean,
+    onSelect: () -> Unit = {}
 ) {
     var expanded by remember { mutableStateOf(false) }
     val rememberedFilters by remember { sharedState.rememberedFilters }
@@ -44,6 +45,7 @@ fun ChooseFilterButtonWithDialog(
             ) {
                 FilteringFilterList(
                     onSelect = {
+                        onSelect()
                         expanded = false
                     },
                     filterNames = rememberedFilters.keys
