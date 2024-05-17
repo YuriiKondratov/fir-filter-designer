@@ -30,10 +30,11 @@ fun RememberButtonWithDialog(
 ) {
     var expanded by remember { mutableStateOf(false) }
     var filterName by remember { mutableStateOf("") }
+    var isError by remember { mutableStateOf(false) }
 
     Button(
         onClick = {
-            if(onClick()) {
+            if (onClick()) {
                 expanded = true
             }
         }
@@ -53,6 +54,7 @@ fun RememberButtonWithDialog(
             ) {
                 Text("Введите имя фильтра:")
                 TextField(
+                    isError = isError,
                     value = filterName,
                     singleLine = true,
                     label = { Text("Имя фильтра") },
@@ -75,9 +77,14 @@ fun RememberButtonWithDialog(
                     }
                     Button(
                         onClick = {
-                            rememberFilter(filterName)
-                            expanded = false
-                            filterName = ""
+                            if (filterName.isEmpty()) {
+                                isError = true
+                            } else {
+                                rememberFilter(filterName)
+                                expanded = false
+                                filterName = ""
+                                isError = false
+                            }
                         },
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = colors.secondary
