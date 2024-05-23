@@ -7,7 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import ui.input.DoubleInput
 import ui.input.IntInput
-import ui.state.highPassFilterDesignState
+import state.highPassFilterDesignState
 
 @Composable
 fun HighPassFilterDesignPanel() {

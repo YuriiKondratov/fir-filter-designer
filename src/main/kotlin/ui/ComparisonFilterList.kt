@@ -21,10 +21,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
-import ui.state.chooseFilter
-import ui.state.deleteFilter
-import ui.state.filterComparisonWindowState
-import ui.state.sharedState
+import state.chooseFilter
+import state.deleteFilter
+import state.filterComparisonWindowState
+import state.sharedState
 
 @Composable
 fun ComparisonFilterList(

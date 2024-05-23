@@ -9,8 +9,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import ui.state.appWindowsState
-import ui.state.isExitNeeded
+import state.appWindowsState
+import state.isExitNeeded
 
 fun FirFilterDesignerApp() = application {
     var designWindowVisible by remember { appWindowsState.designWindowVisible }

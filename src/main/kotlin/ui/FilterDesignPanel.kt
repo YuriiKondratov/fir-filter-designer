@@ -7,7 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import ui.state.filterDesignWindowState
+import state.filterDesignWindowState
 
 @Composable
 fun FilterDesignPanel() {

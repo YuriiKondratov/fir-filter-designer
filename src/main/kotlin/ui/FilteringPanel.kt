@@ -30,10 +30,10 @@ import org.jetbrains.letsPlot.label.ylab
 import org.jetbrains.letsPlot.letsPlot
 import org.jetbrains.letsPlot.scale.scaleXLog2
 import org.jetbrains.letsPlot.skia.compose.PlotPanel
-import ui.controller.applyFilterToSignal
-import ui.controller.visualizeSignalFrequencyResponse
+import controls.applyFilterToSignal
+import controls.visualizeSignalFrequencyResponse
 import ui.input.WavFileInput
-import ui.state.filteringWindowState
+import state.filteringWindowState
 import kotlin.math.round
 
 @Composable

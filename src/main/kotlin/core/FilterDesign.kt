@@ -39,22 +39,20 @@ fun designBandPassFilter(
     highPassWindow: WindowFunction,
     sampleRate: Int,
 ): Filter {
-    val lowPass = designLowPassFilter(
-        sampleRate,
+    val coefficients = designBandRejectFilter(
+        lowPassFrequency,
         highPassFrequency,
         lowPassNumberOfTaps,
-        lowPassWindow
-    )
-    val highPass = designHighPassFilter(
-        sampleRate,
-        lowPassFrequency,
         highPassNumberOfTaps,
-        highPassWindow
-    )
-
-    return Filter(
-        convolution(lowPass.coefficients, highPass.coefficients)
-    )
+        lowPassWindow,
+        highPassWindow,
+        sampleRate
+    ).coefficients
+        .map { it * -1 }
+        .toMutableList()
+    val mid = coefficients[coefficients.size / 2]
+    coefficients[coefficients.size / 2] = mid + 1
+    return Filter(coefficients)
 }
 
 fun designBandRejectFilter(

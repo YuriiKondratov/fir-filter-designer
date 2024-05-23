@@ -1,4 +1,4 @@
-package ui.controller
+package controls
 
 import core.WindowFunction
 import core.WindowFunctionType
@@ -9,12 +9,12 @@ import core.designHighPassFilter
 import core.designLowPassFilter
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import ui.state.bandPassFilterDesignState
-import ui.state.bandRejectFilterDesignState
-import ui.state.filterDesignWindowState
-import ui.state.highPassFilterDesignState
-import ui.state.lowPassFilterDesignState
-import ui.state.setCurrentFilter
+import state.bandPassFilterDesignState
+import state.bandRejectFilterDesignState
+import state.filterDesignWindowState
+import state.highPassFilterDesignState
+import state.lowPassFilterDesignState
+import state.setCurrentFilter
 
 fun calculateLowPassFilter() {
     GlobalScope.launch {
@@ -86,14 +86,14 @@ fun validateHighPassFilterData(): String? {
     return null
 }
 
-fun calculateBandPassFilter() {
+fun calculateBandRejectFilter() {
     GlobalScope.launch {
-        val numberOfLowPassTaps = bandPassFilterDesignState.numberOfLowPassTaps.value!!
-        val numberOfHighPassTaps = bandPassFilterDesignState.numberOfHighPassTaps.value!!
+        val numberOfLowPassTaps = bandRejectFilterDesignState.numberOfLowPassTaps.value!!
+        val numberOfHighPassTaps = bandRejectFilterDesignState.numberOfHighPassTaps.value!!
         val sampleRate = filterDesignWindowState.sampleRate.value!!
-        val filter = designBandPassFilter(
-            bandPassFilterDesignState.lowPassFrequency.value!!,
-            bandPassFilterDesignState.highPassFrequency.value!!,
+        val filter = designBandRejectFilter(
+            bandRejectFilterDesignState.lowPassFrequency.value!!,
+            bandRejectFilterDesignState.highPassFrequency.value!!,
             numberOfLowPassTaps,
             numberOfHighPassTaps,
             calculateWindow(filterDesignWindowState.windowFunction.value, numberOfLowPassTaps),
@@ -106,12 +106,12 @@ fun calculateBandPassFilter() {
     }
 }
 
-fun validateBandPassFilterData(): String? {
-    val numberOfLowPassTaps = bandPassFilterDesignState.numberOfLowPassTaps.value
-    val numberOfHighPassTaps = bandPassFilterDesignState.numberOfHighPassTaps.value
+fun validateBandRejectFilterData(): String? {
+    val numberOfLowPassTaps = bandRejectFilterDesignState.numberOfLowPassTaps.value
+    val numberOfHighPassTaps = bandRejectFilterDesignState.numberOfHighPassTaps.value
     val sampleRate = filterDesignWindowState.sampleRate.value
-    val lowPassFrequency = bandPassFilterDesignState.lowPassFrequency.value
-    val highPassFrequency = bandPassFilterDesignState.highPassFrequency.value
+    val lowPassFrequency = bandRejectFilterDesignState.lowPassFrequency.value
+    val highPassFrequency = bandRejectFilterDesignState.highPassFrequency.value
     if (
         numberOfLowPassTaps == null || numberOfLowPassTaps < 1 ||
         numberOfLowPassTaps > 1023 || numberOfLowPassTaps % 2 == 0
@@ -144,14 +144,14 @@ fun validateBandPassFilterData(): String? {
     return null
 }
 
-fun calculateBandRejectFilter() {
+fun calculateBandPassFilter() {
     GlobalScope.launch {
-        val numberOfLowPassTaps = bandRejectFilterDesignState.numberOfLowPassTaps.value!!
-        val numberOfHighPassTaps = bandRejectFilterDesignState.numberOfHighPassTaps.value!!
+        val numberOfLowPassTaps = bandPassFilterDesignState.numberOfLowPassTaps.value!!
+        val numberOfHighPassTaps = bandPassFilterDesignState.numberOfHighPassTaps.value!!
         val sampleRate = filterDesignWindowState.sampleRate.value!!
-        val filter = designBandRejectFilter(
-            bandRejectFilterDesignState.lowPassFrequency.value!!,
-            bandRejectFilterDesignState.highPassFrequency.value!!,
+        val filter = designBandPassFilter(
+            bandPassFilterDesignState.lowPassFrequency.value!!,
+            bandPassFilterDesignState.highPassFrequency.value!!,
             numberOfLowPassTaps,
             numberOfHighPassTaps,
             calculateWindow(filterDesignWindowState.windowFunction.value, numberOfLowPassTaps),
@@ -164,12 +164,12 @@ fun calculateBandRejectFilter() {
     }
 }
 
-fun validateBandRejectFilterData(): String? {
-    val numberOfLowPassTaps = bandRejectFilterDesignState.numberOfLowPassTaps.value
-    val numberOfHighPassTaps = bandRejectFilterDesignState.numberOfHighPassTaps.value
+fun validateBandPassFilterData(): String? {
+    val numberOfLowPassTaps = bandPassFilterDesignState.numberOfLowPassTaps.value
+    val numberOfHighPassTaps = bandPassFilterDesignState.numberOfHighPassTaps.value
     val sampleRate = filterDesignWindowState.sampleRate.value
-    val lowPassFrequency = bandRejectFilterDesignState.lowPassFrequency.value
-    val highPassFrequency = bandRejectFilterDesignState.highPassFrequency.value
+    val lowPassFrequency = bandPassFilterDesignState.lowPassFrequency.value
+    val highPassFrequency = bandPassFilterDesignState.highPassFrequency.value
     if (
         numberOfLowPassTaps == null || numberOfLowPassTaps < 1 ||
         numberOfLowPassTaps > 1023 || numberOfLowPassTaps % 2 == 0

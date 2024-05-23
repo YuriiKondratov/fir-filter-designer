@@ -1,10 +1,10 @@
-package ui.controller
+package controls
 
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import ui.state.addFilter
-import ui.state.filterDesignWindowState
-import ui.state.sharedState
+import state.addFilter
+import state.filterDesignWindowState
+import state.sharedState
 
 fun rememberFilter(filterName: String) {
     GlobalScope.launch {

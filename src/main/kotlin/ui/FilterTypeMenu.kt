@@ -12,7 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import core.FilterTypeEnum
-import ui.state.filterDesignWindowState
+import state.filterDesignWindowState
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

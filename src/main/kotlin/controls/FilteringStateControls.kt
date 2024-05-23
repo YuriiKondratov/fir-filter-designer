@@ -1,4 +1,4 @@
-package ui.controller
+package controls
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
@@ -6,11 +6,9 @@ import core.FREQUENCY_RESPONSE_POINTS
 import core.coefficients
 import core.convolution
 import core.frequencyResponse
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import ui.state.filteringWindowState
-import ui.state.getFilter
-import ui.state.sharedState
+import state.filteringWindowState
+import state.getFilter
+import state.sharedState
 
 fun visualizeSignalFrequencyResponse(time: Float) {
     val file = filteringWindowState.file.value ?: return

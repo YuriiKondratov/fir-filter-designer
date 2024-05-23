@@ -6,7 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.window.FrameWindowScope
 import androidx.compose.ui.window.MenuBar
-import ui.state.appWindowsState
+import state.appWindowsState
 
 @Composable
 fun FrameWindowScope.AppMenuBar() {
