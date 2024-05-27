@@ -60,7 +60,7 @@ fun ComparisonFilterList(
                             ) {
                                 Icon(
                                     Icons.Rounded.Delete,
-                                    contentDescription = "1234"
+                                    contentDescription = "Delete"
                                 )
                             }
                         }

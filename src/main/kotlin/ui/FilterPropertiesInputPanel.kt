@@ -2,6 +2,7 @@ package ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -114,50 +115,74 @@ fun FilterPropertiesInputPanel() {
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(
-                onClick = calculationCommand
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("Рассчитать")
-            }
-            RememberButtonWithDialog(
-                onClick = {
-                    val filter = filterDesignWindowState.currentFilter.value
-                    if (filter.impulseResponse.isEmpty()) {
-                        errorMessage = "Необходимо сначала рассчитать фильтр!"
-                        isError = true
-                        false
-                    } else {
-                        true
-                    }
+                Button(
+                    onClick = calculationCommand
+                ) {
+                    Text("Рассчитать")
                 }
-            )
-            Button(
-                onClick = {
-                    val filter = filterDesignWindowState.currentFilter.value
-                    if (filter.impulseResponse.isEmpty()) {
-                        errorMessage = "Необходимо сначала рассчитать фильтр!"
-                        isError = true
-                    } else {
-                        val dialog = FileDialog(ComposeWindow(), "", FileDialog.SAVE)
-                        dialog.isVisible = true
-                        if (dialog.directory != null || dialog.file != null) {
-                            val path = dialog.directory + dialog.file + ".txt"
-                            val file = File(path)
-                            Files.deleteIfExists(file.toPath())
-                            try {
-                                file.writeText(filter.impulseResponse
-                                    .values
-                                    .map { round(it * 10e6) / 10e6 }
-                                    .joinToString { it.toBigDecimal().toPlainString() })
-                            } catch (ex: Exception) {
-                                errorMessage = "Ошибка при записи файла: ${ex.message}"
-                                isError = true
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                RememberButtonWithDialog(
+                    onClick = {
+                        val filter = filterDesignWindowState.currentFilter.value
+                        if (filter.impulseResponse.isEmpty()) {
+                            errorMessage = "Необходимо сначала рассчитать фильтр!"
+                            isError = true
+                            false
+                        } else {
+                            true
+                        }
+                    }
+                )
+                InfoIconWithTooltip(
+                    "Запомненные фильтры будут доступны\nдля сравнения " +
+                            "в окне 'Сравнение'\nи для выбора в окне 'Применение'",
+                    alignment = Alignment.TopCenter
+                )
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Button(
+                    onClick = {
+                        val filter = filterDesignWindowState.currentFilter.value
+                        if (filter.impulseResponse.isEmpty()) {
+                            errorMessage = "Необходимо сначала рассчитать фильтр!"
+                            isError = true
+                        } else {
+                            val dialog = FileDialog(ComposeWindow(), "", FileDialog.SAVE)
+                            dialog.isVisible = true
+                            if (dialog.directory != null || dialog.file != null) {
+                                val path = dialog.directory + dialog.file + ".txt"
+                                val file = File(path)
+                                Files.deleteIfExists(file.toPath())
+                                try {
+                                    file.writeText(filter.impulseResponse
+                                        .values
+                                        .map { round(it * 10e6) / 10e6 }
+                                        .joinToString { it.toBigDecimal().toPlainString() })
+                                } catch (ex: Exception) {
+                                    errorMessage = "Ошибка при записи файла: ${ex.message}"
+                                    isError = true
+                                }
                             }
                         }
                     }
+                ) {
+                    Text("Экспортировать")
                 }
-            ) {
-                Text("Экспортировать")
+                InfoIconWithTooltip(
+                    "Сохранить коэффициенты фильтра\nв текстовый файл",
+                    alignment = Alignment.TopStart
+                )
             }
         }
     }
