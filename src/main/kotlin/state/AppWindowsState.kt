@@ -8,6 +8,7 @@ class AppWindowsState {
     val designWindowVisible = mutableStateOf(true)
     val comparisonWindowVisible = mutableStateOf(false)
     val filteringWindowVisible = mutableStateOf(false)
+    val helpWindowVisible = mutableStateOf(false)
 }
 
 fun AppWindowsState.isExitNeeded() =

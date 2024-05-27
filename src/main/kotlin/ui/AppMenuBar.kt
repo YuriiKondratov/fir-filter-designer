@@ -13,6 +13,7 @@ fun FrameWindowScope.AppMenuBar() {
     var designWindowVisible by remember { appWindowsState.designWindowVisible }
     var comparisonWindowVisible by remember { appWindowsState.comparisonWindowVisible }
     var filteringWindowVisible by remember { appWindowsState.filteringWindowVisible }
+    var helpWindowVisible by remember { appWindowsState.helpWindowVisible }
 
     MenuBar {
         Menu("Меню") {
@@ -24,6 +25,9 @@ fun FrameWindowScope.AppMenuBar() {
             })
             Item("Применение", onClick = {
                 filteringWindowVisible = true
+            })
+            Item("Помощь", onClick = {
+                helpWindowVisible = true
             })
         }
     }

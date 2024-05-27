@@ -16,6 +16,7 @@ fun FirFilterDesignerApp() = application {
     var designWindowVisible by remember { appWindowsState.designWindowVisible }
     var comparisonWindowVisible by remember { appWindowsState.comparisonWindowVisible }
     var filteringWindowVisible by remember { appWindowsState.filteringWindowVisible }
+    var helpWindowsVisible by remember { appWindowsState.helpWindowVisible }
 
     MaterialTheme {
         Window(
@@ -59,6 +60,20 @@ fun FirFilterDesignerApp() = application {
         ) {
             AppMenuBar()
             FilteringPanel()
+        }
+        Window(
+            state = rememberWindowState(size = DpSize(800.dp, 600.dp)),
+            title = "Помощь",
+            visible = helpWindowsVisible,
+            onCloseRequest = {
+                helpWindowsVisible = false
+                if (appWindowsState.isExitNeeded()) {
+                    exitApplication()
+                }
+            }
+        ) {
+            AppMenuBar()
+            HelpPanel()
         }
     }
 }
